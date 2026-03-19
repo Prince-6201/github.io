@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prince Kumar | Full Stack Engineer</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>"
+    />
+
+    <meta property="og:title" content="Prince Kumar | Full Stack Developer" />
+    <meta
+      property="og:description"
+      content="Portfolio of Prince Kumar, specializing in React, Node.js, and Java."
+    />
+    <meta property="og:image" content="link-to-your-screenshot.jpg" />
+    <style>
+      :root {
+        --primary: #6366f1;
+        --bg: #030712;
+        --card-bg: rgba(17, 24, 39, 0.7);
+        --border: rgba(255, 255, 255, 0.08);
+        --text-primary: #f9fafb;
+        --text-secondary: #9ca3af;
+        --nav-bg: rgba(3, 7, 18, 0.8);
+      }
+
+      [data-theme="light"] {
+        --bg: #f8fafc;
+        --card-bg: rgba(255, 255, 255, 0.8);
+        --border: rgba(0, 0, 0, 0.1);
+        --text-primary: #0f172a;
+        --text-secondary: #475569;
+        --nav-bg: rgba(248, 250, 252, 0.8);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background-color: var(--bg);
+        color: var(--text-primary);
+        transition: background 0.3s ease;
+        line-height: 1.6;
+      }
+
+      /* BACKGROUND DECOR */
+      .blob {
+        position: fixed;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(
+          circle,
+          rgba(99, 102, 241, 0.15) 0%,
+          transparent 70%
+        );
+        border-radius: 50%;
+        z-index: -1;
+        filter: blur(80px);
+      }
+
+      /* NAVIGATION */
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.2rem 10%;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        backdrop-filter: blur(15px);
+        border-bottom: 1px solid var(--border);
+        background: var(--nav-bg);
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+        align-items: center;
+      }
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        font-weight: 600;
+        transition: 0.3s;
+      }
+      .nav-links a:hover {
+        color: var(--primary);
+      }
+
+      .theme-toggle {
+        background: none;
+        border: 1px solid var(--border);
+        color: var(--text-primary);
+        padding: 6px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.8rem;
+      }
+
+      /* SECTIONS */
+      section {
+        padding: 140px 10% 80px;
+        min-height: 90vh;
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: 0.8s ease-out;
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* HOME */
+      #home h1 {
+        font-size: clamp(3rem, 8vw, 5rem);
+        font-weight: 800;
+        line-height: 1;
+      }
+      #home span {
+        background: linear-gradient(90deg, #818cf8, #c084fc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* PROJECTS */
+      .project-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 1.5rem;
+      }
+      .p-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        padding: 2.5rem;
+        border-radius: 24px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .p-card:hover {
+        border-color: var(--primary);
+        transform: translateY(-5px);
+      }
+      .btn-group {
+        margin-top: 1.5rem;
+        display: flex;
+        gap: 0.8rem;
+      }
+      .btn-sm {
+        padding: 8px 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 0.8rem;
+        font-weight: 700;
+        transition: 0.2s;
+      }
+      .btn-p {
+        background: var(--primary);
+        color: white;
+      }
+      .btn-s {
+        border: 1px solid var(--border);
+        color: var(--text-primary);
+      }
+
+      /* SKILLS */
+      .skills-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+      }
+      .skill-chip {
+        padding: 12px 24px;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 100px;
+        font-weight: 600;
+        transition: 0.3s;
+      }
+
+      /* CONTACT & SOCIALS */
+      #contact {
+        text-align: center;
+      }
+      .contact-email {
+        font-size: clamp(1.5rem, 5vw, 2.5rem);
+        font-weight: 800;
+        color: var(--text-primary);
+        text-decoration: none;
+        margin: 2rem 0;
+        display: block;
+      }
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+      .social-icon {
+        color: var(--text-secondary);
+        transition: 0.3s;
+      }
+      .social-icon:hover {
+        color: var(--primary);
+        transform: scale(1.2);
+      }
+
+      /* MODAL */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+      }
+      .modal-overlay.active {
+        display: flex;
+      }
+      .modal-content {
+        background: var(--bg);
+        border: 1px solid var(--border);
+        padding: 40px;
+        border-radius: 28px;
+        max-width: 500px;
+        width: 90%;
+        position: relative;
+      }
+      .close-modal {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: none;
+        border: none;
+        color: var(--text-primary);
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+        }
+      }
+
+      input:focus,
+      textarea:focus {
+        border-color: var(--primary) !important;
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        transition: 0.3s;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="blob" style="top: -100px; right: -100px"></div>
+    <div class="blob" style="bottom: -100px; left: -100px"></div>
+
+    <nav>
+      <div style="font-weight: 800; letter-spacing: -1px">PRINCE.KUMAR</div>
+      <div style="display: flex; align-items: center; gap: 2rem">
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <a
+            href="Resume 5.pdf"
+            download
+            class="btn btn-s"
+            style="
+              margin-left: 10px;
+              display: inline-flex;
+              align-items: center;
+              gap: 8px;
+            "
+          >
+            <svg
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4m4-5 5 5 5-5m-5 5V3"
+              ></path>
+            </svg>
+            Resume
+          </a>
+          <li><a href="#projects">Work</a></li>
+          <li><a href="#skills">Stack</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="theme-toggle" id="theme-toggle">☀️ Light</button>
+      </div>
+    </nav>
+
+    <section id="home">
+      <div class="reveal">
+        <p style="color: var(--primary); font-weight: 600; margin-bottom: 1rem">
+          Available for Hire
+        </p>
+        <h1>Building Scalable<br /><span>Digital Solutions.</span></h1>
+        <p
+          style="
+            margin-top: 2rem;
+            max-width: 550px;
+            color: var(--text-secondary);
+          "
+        >
+          I'm Prince Kumar, a Full-Stack Developer specializing in
+          high-performance web systems using React, Node.js, and Java.
+        </p>
+      </div>
+    </section>
+
+    <section id="projects" class="reveal">
+      <h2 style="margin-bottom: 3rem; font-size: 2.5rem">Selected Work</h2>
+      <div class="project-grid">
+        <div
+          class="p-card"
+          data-title="E-Commerce App"
+          data-desc="Complete end-to-end shopping platform with secure checkout and MySQL database."
+          data-live="#"
+          data-repo="#"
+        >
+          <small style="color: var(--primary)">Full Stack</small>
+          <h3 style="margin: 10px 0">E-Commerce Web</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem">
+            End-to-end shopping experience built with React and MySQL.
+          </p>
+          <div class="btn-group">
+            <span class="btn-sm btn-p">View Details</span>
+          </div>
+        </div>
+
+        <div
+          class="p-card"
+          data-title="Resume Matcher"
+          data-desc="AI-driven tool to match candidate resumes with job descriptions accurately."
+          data-live="#"
+          data-repo="#"
+        >
+          <small style="color: var(--primary)">AI Tooling</small>
+          <h3 style="margin: 10px 0">Resume & JD Matcher</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem">
+            Pattern matching engine to optimize job applications.
+          </p>
+          <div class="btn-group">
+            <span class="btn-sm btn-p">View Details</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="reveal">
+      <h2 style="margin-bottom: 3rem; text-align: center">Technical Stack</h2>
+      <div class="skills-grid">
+        <div class="skill-chip">JavaScript</div>
+        <div class="skill-chip">React.js</div>
+        <div class="skill-chip">Node.js</div>
+        <div class="skill-chip">Java</div>
+        <div class="skill-chip">MySQL</div>
+        <div class="skill-chip">GitHub</div>
+      </div>
+    </section>
+
+    <section id="contact" class="reveal">
+      <div style="max-width: 600px; margin: 0 auto; text-align: center">
+        <p
+          style="color: var(--primary); font-weight: 600; margin-bottom: 0.5rem"
+        >
+          Get In Touch
+        </p>
+        <h2 style="font-size: 2.5rem; margin-bottom: 2rem">
+          Let's work together.
+        </h2>
+
+        <form
+          action="https://formspree.io/f/xgondvre"
+          method="POST"
+          id="contact-form"
+          style="
+            text-align: left;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+          "
+        >
+          <div style="margin-bottom: 1.5rem">
+            <label
+              style="
+                display: block;
+                margin-bottom: 8px;
+                font-size: 0.9rem;
+                font-weight: 600;
+              "
+              >Your Name</label
+            >
+            <input
+              type="text"
+              name="name"
+              required
+              style="
+                width: 100%;
+                padding: 12px;
+                border-radius: 10px;
+                border: 1px solid var(--border);
+                background: var(--bg);
+                color: var(--text-primary);
+                outline: none;
+              "
+            />
+          </div>
+
+          <div style="margin-bottom: 1.5rem">
+            <label
+              style="
+                display: block;
+                margin-bottom: 8px;
+                font-size: 0.9rem;
+                font-weight: 600;
+              "
+              >Email Address</label
+            >
+            <input
+              type="email"
+              name="email"
+              required
+              style="
+                width: 100%;
+                padding: 12px;
+                border-radius: 10px;
+                border: 1px solid var(--border);
+                background: var(--bg);
+                color: var(--text-primary);
+                outline: none;
+              "
+            />
+          </div>
+
+          <div style="margin-bottom: 1.5rem">
+            <label
+              style="
+                display: block;
+                margin-bottom: 8px;
+                font-size: 0.9rem;
+                font-weight: 600;
+              "
+              >Message</label
+            >
+            <textarea
+              name="message"
+              rows="4"
+              required
+              style="
+                width: 100%;
+                padding: 12px;
+                border-radius: 10px;
+                border: 1px solid var(--border);
+                background: var(--bg);
+                color: var(--text-primary);
+                outline: none;
+                resize: vertical;
+              "
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-p"
+            style="width: 100%; border: none; cursor: pointer"
+          >
+            Send Message
+          </button>
+        </form>
+
+        <div class="social-links" style="margin-top: 3rem">
+          <a href="https://github.com/Prince-6201" class="social-icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+              ></path>
+            </svg>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/prince-kumar-a10a67351?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+            class="social-icon"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+              ></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+    <button
+      id="scroll-top"
+      style="
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--primary);
+        color: white;
+        border: none;
+        cursor: pointer;
+        display: none;
+        z-index: 1000;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+      "
+    >
+      ↑
+    </button>
+
+    <div id="project-modal" class="modal-overlay">
+      <div class="modal-content">
+        <button class="close-modal">&times;</button>
+        <h2 id="modal-title" style="margin-bottom: 15px"></h2>
+        <p
+          id="modal-desc"
+          style="color: var(--text-secondary); margin-bottom: 25px"
+        ></p>
+        <div style="display: flex; gap: 10px">
+          <a href="#" id="modal-live" class="btn-sm btn-p">Live Demo</a>
+          <a href="#" id="modal-repo" class="btn-sm btn-s">View Code</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const scrollTop = document.getElementById("scroll-top");
+
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 500) {
+          scrollTop.style.display = "block";
+        } else {
+          scrollTop.style.display = "none";
+        }
+      });
+
+      scrollTop.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+      // 1. Theme Toggle
+      const toggleBtn = document.getElementById("theme-toggle");
+      toggleBtn.addEventListener("click", () => {
+        const isLight =
+          document.documentElement.getAttribute("data-theme") === "light";
+        document.documentElement.setAttribute(
+          "data-theme",
+          isLight ? "dark" : "light",
+        );
+        toggleBtn.textContent = isLight ? "☀️ Light" : "🌙 Dark";
+      });
+
+      // 2. Scroll Reveal
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.classList.add("active");
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
+
+      // 3. Modal logic
+      const modal = document.getElementById("project-modal");
+      document.querySelectorAll(".p-card").forEach((card) => {
+        card.addEventListener("click", () => {
+          document.getElementById("modal-title").textContent =
+            card.dataset.title;
+          document.getElementById("modal-desc").textContent = card.dataset.desc;
+          document.getElementById("modal-live").href = card.dataset.live;
+          document.getElementById("modal-repo").href = card.dataset.repo;
+          modal.classList.add("active");
+        });
+      });
+
+      document
+        .querySelector(".close-modal")
+        .addEventListener("click", () => modal.classList.remove("active"));
+      window.addEventListener("click", (e) => {
+        if (e.target === modal) modal.classList.remove("active");
+      });
+    </script>
+  </body>
+</html>
